@@ -326,6 +326,21 @@ h1, h2, h3 {
     transform: translateY(-10px);
 }
 
+/* Wide banner card spanning full row */
+.gallery-card--wide {
+    grid-column: 1 / -1;
+}
+
+.gallery-card--wide .card-img {
+    height: 320px;
+}
+
+.gallery-card--wide .card-img img {
+    object-fit: contain;
+    background: #f9f5f0;
+    padding: 10px;
+}
+
 .card-img {
     position: relative;
     height: 350px;
