@@ -717,6 +717,24 @@ footer {
 }
 
 @media (max-width: 768px) {
+    #navbar {
+        padding: 8px 20px;
+        top: 10px;
+    }
+
+    .logo-img {
+        height: 32px;
+    }
+
+    .logo-text {
+        font-size: 18px;
+    }
+
+    .logo-sub {
+        font-size: 8px;
+        letter-spacing: 2px;
+    }
+
     .nav-links {
         display: none;
     }
