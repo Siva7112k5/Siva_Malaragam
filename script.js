@@ -102,22 +102,21 @@ document.addEventListener('DOMContentLoaded', () => {
             const service = document.getElementById('service').value;
             const message = document.getElementById('message').value;
             
-            // Constructing the email body
-            const subject = encodeURIComponent(`Booking Inquiry from ${name}`);
-            const body = encodeURIComponent(
-                `Name: ${name}\n` +
-                `Phone: ${phone}\n` +
-                `Service Requested: ${service}\n` +
-                `Message: ${message}`
+            // Constructing the WhatsApp message body
+            const whatsappMessage = encodeURIComponent(
+                `*New Booking Inquiry*\n\n` +
+                `*Name:* ${name}\n` +
+                `*Phone:* ${phone}\n` +
+                `*Service Requested:* ${service}\n` +
+                `*Message:* ${message}`
             );
             
-            // Using mailto to open the default email client
-            // Replace with your email address
-            const email = "sivamalaragam@gmail.com"; 
-            window.location.href = `mailto:${email}?subject=${subject}&body=${body}`;
+            // Using wa.me to open WhatsApp
+            const whatsappNumber = "919043345140"; 
+            window.open(`https://wa.me/${whatsappNumber}?text=${whatsappMessage}`, '_blank');
             
             // Optional: Show success message
-            alert("Redirecting to your email client to complete the booking...");
+            alert("Redirecting to WhatsApp to complete your booking...");
         });
     }
 
