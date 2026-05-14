@@ -1,7 +1,15 @@
 // Siva Malaragam - JavaScript
 
 document.addEventListener('DOMContentLoaded', () => {
-    
+
+    // 0. Splash Screen Logic
+    const splashScreen = document.getElementById('splash-screen');
+    if (splashScreen) {
+        setTimeout(() => {
+            splashScreen.classList.add('hidden');
+        }, 750); // Hold for 0.75s before fading out
+    }
+
     // 1. Navbar Scroll Effect (Top & Bottom)
     const navbar = document.getElementById('navbar');
     const mobileNav = document.getElementById('mobile-nav');
@@ -25,7 +33,7 @@ document.addEventListener('DOMContentLoaded', () => {
             // Scrolling up
             mobileNav.classList.remove('nav-hidden');
         }
-        
+
         lastScrollY = currentScrollY;
 
         // Update active state in bottom nav
@@ -72,7 +80,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // 3. Mobile Menu Toggle (Simplified)
     const menuBtn = document.getElementById('menu-btn');
     const navLinks = document.querySelector('.nav-links');
-    
+
     if (menuBtn) {
         menuBtn.addEventListener('click', () => {
             // Since the CSS doesn't have the mobile-nav-active class yet, 
@@ -96,12 +104,12 @@ document.addEventListener('DOMContentLoaded', () => {
     if (bookingForm) {
         bookingForm.addEventListener('submit', (e) => {
             e.preventDefault();
-            
+
             const name = document.getElementById('name').value;
             const phone = document.getElementById('phone').value;
             const service = document.getElementById('service').value;
             const message = document.getElementById('message').value;
-            
+
             // Constructing the WhatsApp message body
             const whatsappMessage = encodeURIComponent(
                 `*New Booking Inquiry*\n\n` +
@@ -110,11 +118,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 `*Service Requested:* ${service}\n` +
                 `*Message:* ${message}`
             );
-            
+
             // Using wa.me to open WhatsApp
-            const whatsappNumber = "919043345140"; 
+            const whatsappNumber = "919043345140";
             window.open(`https://wa.me/${whatsappNumber}?text=${whatsappMessage}`, '_blank');
-            
+
             // Optional: Show success message
             alert("Redirecting to WhatsApp to complete your booking...");
         });
