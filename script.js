@@ -7,7 +7,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (splashScreen) {
         setTimeout(() => {
             splashScreen.classList.add('hidden');
-        }, 750); // Hold for 0.75s before fading out
+        }, 2000); // Hold for 2s before fading out
     }
 
     // 1. Navbar Scroll Effect (Top & Bottom)
