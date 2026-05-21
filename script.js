@@ -128,7 +128,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // 5. Smooth Scroll for all links
+    // 5. Smooth Scroll for all links (with navbar offset)
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function (e) {
             const targetId = this.getAttribute('href');
@@ -136,9 +136,10 @@ document.addEventListener('DOMContentLoaded', () => {
             const targetEl = document.querySelector(targetId);
             if (targetEl) {
                 e.preventDefault();
-                targetEl.scrollIntoView({
-                    behavior: 'smooth'
-                });
+                const navbarHeight = document.getElementById('navbar')?.offsetHeight || 80;
+                const offset = 20; // extra breathing room
+                const top = targetEl.getBoundingClientRect().top + window.scrollY - navbarHeight - offset;
+                window.scrollTo({ top, behavior: 'smooth' });
             }
         });
     });

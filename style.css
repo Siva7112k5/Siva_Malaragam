@@ -25,6 +25,10 @@
     scroll-behavior: smooth;
 }
 
+html {
+    scroll-padding-top: 90px;
+}
+
 body {
     font-family: 'Outfit', 'Noto Sans Tamil', sans-serif;
     color: var(--text-color);
@@ -1154,5 +1158,27 @@ footer {
     .hero-btns .btn {
         width: 80%;
         text-align: center;
+    }
+
+    /* Fix gallery card overlay on mobile — always show as bottom strip */
+    .card-overlay {
+        opacity: 1;
+        background: transparent;
+        justify-content: flex-end;
+        padding-bottom: 14px;
+        pointer-events: none;
+    }
+
+    .card-overlay .btn-card {
+        pointer-events: auto;
+        transform: translateY(0);
+        width: 90%;
+        font-size: 13px;
+        padding: 9px 10px;
+    }
+
+    /* Don't scale image on mobile tap */
+    .gallery-card:hover .card-img img {
+        transform: none;
     }
 }
