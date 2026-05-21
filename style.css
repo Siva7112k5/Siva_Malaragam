@@ -749,12 +749,14 @@ footer {
 
 @media (max-width: 768px) {
     #navbar {
-        padding: 8px 16px;
+        padding: 10px 14px;
         top: 10px;
-        width: calc(100% - 20px);
-        max-width: none;
-        left: 50%;
-        transform: translateX(-50%);
+        width: 100%;
+        max-width: 100%;
+        left: 0;
+        right: 0;
+        transform: none;
+        border-radius: 40px;
     }
 
     .logo-img {
@@ -763,6 +765,9 @@ footer {
 
     .logo-text {
         font-size: 18px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
     }
 
     .logo-sub {
@@ -777,6 +782,12 @@ footer {
     .mobile-nav-icons {
         display: flex;
         align-items: center;
+        gap: 12px;
+        flex-shrink: 0;
+    }
+
+    .mobile-nav-icons a {
+        font-size: 18px;
     }
 
     .menu-btn {
