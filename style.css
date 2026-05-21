@@ -620,8 +620,8 @@ footer {
 /* WhatsApp Float */
 .whatsapp-float {
     position: fixed;
-    bottom: 30px;
-    right: 30px;
+    bottom: max(30px, env(safe-area-inset-bottom));
+    right: max(20px, env(safe-area-inset-right));
     background-color: #25d366;
     color: #FFF;
     border-radius: 50px;
@@ -682,6 +682,8 @@ footer {
     bottom: 0;
     left: 0;
     width: 100%;
+    padding-inline-start: max(10px, env(safe-area-inset-left));
+    padding-inline-end: max(10px, env(safe-area-inset-right));
     height: 70px;
     background: rgba(255, 255, 255, 0.95);
     backdrop-filter: blur(15px);
@@ -749,7 +751,8 @@ footer {
 
 @media (max-width: 768px) {
     #navbar {
-        padding: 10px 14px;
+        padding: 10px max(14px, env(safe-area-inset-right));
+        padding-left: max(14px, env(safe-area-inset-left));
         top: 10px;
         width: 100%;
         max-width: 100%;
