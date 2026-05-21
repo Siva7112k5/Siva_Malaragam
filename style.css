@@ -93,6 +93,8 @@ h3 {
     justify-content: space-between;
     align-items: center;
     width: 100%;
+    flex-wrap: wrap;
+    gap: 12px;
 }
 
 .logo {
@@ -747,9 +749,12 @@ footer {
 
 @media (max-width: 768px) {
     #navbar {
-        padding: 8px 20px;
+        padding: 8px 16px;
         top: 10px;
-        width: 95%;
+        width: calc(100% - 20px);
+        max-width: none;
+        left: 50%;
+        transform: translateX(-50%);
     }
 
     .logo-img {
