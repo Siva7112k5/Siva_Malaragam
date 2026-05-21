@@ -131,9 +131,91 @@ document.addEventListener('DOMContentLoaded', () => {
     // 5. Smooth Scroll for all links
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function (e) {
-            e.preventDefault();
-            document.querySelector(this.getAttribute('href')).scrollIntoView({
-                behavior: 'smooth'
+            const targetId = this.getAttribute('href');
+            if (targetId === '#') return;
+            const targetEl = document.querySelector(targetId);
+            if (targetEl) {
+                e.preventDefault();
+                targetEl.scrollIntoView({
+                    behavior: 'smooth'
+                });
+            }
+        });
+    });
+
+    // 6. Dynamic Categorization & WhatsApp Link Customization
+    const allCards = document.querySelectorAll('.gallery-card');
+    allCards.forEach(card => {
+        const img = card.querySelector('img');
+        const btn = card.querySelector('.btn-card');
+        const h3 = card.querySelector('h3');
+        const p = card.querySelector('.card-info p');
+        
+        if (img) {
+            const imgSrc = img.getAttribute('src') || '';
+            const imgName = imgSrc.split('/').pop().split('.')[0]; // e.g. "m1"
+            
+            // Assign Occasion Categories dynamically (only for gallery cards)
+            if (card.closest('#gallery')) {
+                let category = 'wedding'; // default
+                
+                if (imgName.startsWith('m')) {
+                    const num = parseInt(imgName.substring(1));
+                    if ((num >= 37 && num <= 61) || num === 20 || num === 65) {
+                        category = 'temple';
+                    } else if (num === 4 || num === 8 || num === 10 || num === 11 || num === 12 || num === 18 || num === 23 || (num >= 29 && num <= 36)) {
+                        category = 'pooja';
+                    }
+                } else if (imgName === '3rd') {
+                    category = 'wedding pooja temple'; // show everywhere
+                }
+                
+                card.setAttribute('data-category', category);
+            }
+            
+            // Pre-fill WhatsApp Link with custom message
+            if (btn && h3) {
+                const title = h3.textContent.trim();
+                const desc = p ? p.textContent.trim() : '';
+                
+                const isCombo = card.closest('#combos') !== null;
+                const itemType = isCombo ? 'காம்போ (Combo)' : 'மாலை (Garland)';
+                
+                const message = `வணக்கம் சிவா மலரகம் (Hello Siva Malaragam),\n\nநான் இந்த ${itemType} ஆர்டர் செய்ய விரும்புகிறேன்:\n🌸 *பொருள்/பெயர்:* ${title}\n🏷️ *குறியீடு (Code):* ${imgName}\n📝 *விவரம் (Description):* ${desc}\n\nதயவுசெய்து இதன் விலை மற்றும் விவரங்களை கூறவும்.`;
+                
+                btn.href = `https://wa.me/919443994187?text=${encodeURIComponent(message)}`;
+                btn.target = '_blank';
+            }
+        }
+    });
+
+    // 7. Occasion Filter Tabs Logic
+    const galleryCards = document.querySelectorAll('#gallery .gallery-card');
+    const filterBtns = document.querySelectorAll('.filter-btn');
+    filterBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            // Update active states
+            filterBtns.forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            
+            const filterValue = btn.getAttribute('data-filter');
+            
+            galleryCards.forEach(card => {
+                const cardCats = card.getAttribute('data-category') || '';
+                if (filterValue === 'all' || cardCats.split(' ').includes(filterValue)) {
+                    card.style.display = 'block';
+                    // Trigger reflow & simple fade-in
+                    card.style.opacity = '0';
+                    card.style.transform = 'translateY(15px)';
+                    setTimeout(() => {
+                        card.style.opacity = '1';
+                        card.style.transform = 'translateY(0)';
+                        card.classList.add('active');
+                    }, 50);
+                } else {
+                    card.style.display = 'none';
+                    card.classList.remove('active');
+                }
             });
         });
     });
