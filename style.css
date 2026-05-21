@@ -420,8 +420,10 @@ h3 {
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(45, 90, 39, 0.7);
+    background: rgba(45, 90, 39, 0.75);
     display: flex;
+    flex-direction: column;
+    gap: 12px;
     align-items: center;
     justify-content: center;
     opacity: 0;
@@ -437,14 +439,35 @@ h3 {
 }
 
 .btn-card {
-    padding: 12px 25px;
+    width: 80%;
+    text-align: center;
+    padding: 10px 15px;
     background: var(--white);
     color: var(--primary-color);
     text-decoration: none;
     border-radius: 50px;
-    font-weight: 700;
+    font-weight: 600;
+    font-size: 14px;
     transform: translateY(20px);
     transition: var(--transition);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+}
+
+.btn-card.btn-instagram {
+    background: #E1306C;
+    color: var(--white);
+}
+
+.btn-card.btn-instagram:hover {
+    background: #c13584;
+}
+
+.btn-card:hover {
+    transform: translateY(-2px) !important;
 }
 
 .gallery-card:hover .btn-card {
@@ -932,4 +955,213 @@ footer {
     color: var(--white);
     transform: translateY(-2px);
     box-shadow: 0 8px 20px rgba(45, 90, 39, 0.2);
+}
+
+/* Trust Strip (Hero) */
+.trust-strip {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 25px;
+    margin-top: 15px;
+    margin-bottom: 35px;
+    background: rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    padding: 12px 25px;
+    border-radius: 50px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+    animation: fadeInDown 1s 0.2s forwards;
+    opacity: 0;
+}
+
+.trust-strip span {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--white);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.trust-strip span i {
+    color: #FFD700;
+}
+
+/* Reviews Section */
+.reviews-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+    margin-top: 40px;
+}
+
+.review-card {
+    background: var(--white);
+    border-radius: 20px;
+    padding: 35px;
+    box-shadow: var(--shadow);
+    border: 1px solid rgba(45, 90, 39, 0.05);
+    transition: var(--transition);
+}
+
+.review-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 15px 35px rgba(45, 90, 39, 0.08);
+}
+
+.review-card .stars {
+    color: #FFD700;
+    margin-bottom: 15px;
+}
+
+.review-card p {
+    font-style: italic;
+    color: var(--text-light);
+    margin-bottom: 20px;
+    line-height: 1.7;
+    font-size: 15px;
+}
+
+.review-card .client-name {
+    display: block;
+    font-weight: 700;
+    color: var(--primary-color);
+    font-size: 14px;
+}
+
+/* How to Order Section */
+.steps-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+    margin-top: 40px;
+}
+
+.step-card {
+    background: var(--white);
+    border-radius: 20px;
+    padding: 40px;
+    text-align: center;
+    position: relative;
+    box-shadow: var(--shadow);
+    transition: var(--transition);
+}
+
+.step-card:hover {
+    transform: translateY(-5px);
+}
+
+.step-num {
+    width: 55px;
+    height: 55px;
+    background: var(--primary-color);
+    color: var(--white);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+    font-weight: 700;
+    margin: 0 auto 20px;
+    box-shadow: 0 5px 15px rgba(45, 90, 39, 0.2);
+}
+
+.step-card h3 {
+    font-size: 18px;
+    margin-bottom: 15px;
+    color: var(--primary-color);
+}
+
+.step-card p {
+    color: var(--text-light);
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+/* FAQ Section */
+.faq-accordion {
+    max-width: 800px;
+    margin: 40px auto 0;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.faq-item {
+    background: var(--white);
+    border-radius: 12px;
+    box-shadow: var(--shadow);
+    border: 1px solid rgba(45, 90, 39, 0.05);
+    overflow: hidden;
+    transition: var(--transition);
+}
+
+.faq-question {
+    padding: 22px 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    user-select: none;
+    background: var(--white);
+    transition: var(--transition);
+}
+
+.faq-question h3 {
+    font-size: 16px;
+    color: var(--primary-color);
+    font-weight: 600;
+    font-family: 'Outfit', sans-serif;
+    margin: 0;
+}
+
+.faq-question .icon {
+    font-size: 14px;
+    color: var(--primary-color);
+    transition: transform 0.3s ease;
+}
+
+.faq-answer {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s cubic-bezier(0, 1, 0, 1);
+    padding: 0 30px;
+}
+
+.faq-answer p {
+    padding-bottom: 22px;
+    color: var(--text-light);
+    font-size: 14px;
+    line-height: 1.6;
+    margin: 0;
+}
+
+.faq-item.open .faq-answer {
+    max-height: 1000px;
+    transition: max-height 0.4s cubic-bezier(1, 0, 1, 0);
+}
+
+.faq-item.open .faq-question .icon {
+    transform: rotate(45deg);
+}
+
+.faq-item.open .faq-question {
+    background: rgba(45, 90, 39, 0.05);
+}
+
+/* Responsive Overrides */
+@media (max-width: 768px) {
+    .trust-strip {
+        border-radius: 15px;
+        gap: 12px;
+        padding: 12px 15px;
+        margin-top: 15px;
+        margin-bottom: 25px;
+    }
+    .trust-strip span {
+        font-size: 12px;
+    }
 }

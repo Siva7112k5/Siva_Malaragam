@@ -143,17 +143,17 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // 6. Dynamic Categorization & WhatsApp Link Customization
+    // 6. Dynamic Categorization & WhatsApp/Instagram Customization
     const allCards = document.querySelectorAll('.gallery-card');
     allCards.forEach(card => {
         const img = card.querySelector('img');
-        const btn = card.querySelector('.btn-card');
         const h3 = card.querySelector('h3');
         const p = card.querySelector('.card-info p');
         
-        if (img) {
+        if (img && h3) {
             const imgSrc = img.getAttribute('src') || '';
             const imgName = imgSrc.split('/').pop().split('.')[0]; // e.g. "m1"
+            const title = h3.textContent.trim();
             
             // Assign Occasion Categories dynamically (only for gallery cards)
             if (card.closest('#gallery')) {
@@ -161,30 +161,35 @@ document.addEventListener('DOMContentLoaded', () => {
                 
                 if (imgName.startsWith('m')) {
                     const num = parseInt(imgName.substring(1));
-                    if ((num >= 37 && num <= 61) || num === 20 || num === 65) {
+                    if ((num >= 37 && num <= 61) || num === 4 || num === 7 || num === 8 || num === 10 || num === 11 || num === 12 || num === 18 || num === 20 || num === 23 || (num >= 29 && num <= 36) || num === 65) {
                         category = 'temple';
-                    } else if (num === 4 || num === 8 || num === 10 || num === 11 || num === 12 || num === 18 || num === 23 || (num >= 29 && num <= 36)) {
-                        category = 'pooja';
+                    } else if (num === 5 || num === 14 || num === 19 || num === 22 || num === 64) {
+                        category = 'reception';
                     }
                 } else if (imgName === '3rd') {
-                    category = 'wedding pooja temple'; // show everywhere
+                    category = 'wedding reception temple'; // show everywhere
                 }
                 
                 card.setAttribute('data-category', category);
+            } else if (card.closest('#combos')) {
+                card.setAttribute('data-category', 'combo');
             }
             
-            // Pre-fill WhatsApp Link with custom message
-            if (btn && h3) {
-                const title = h3.textContent.trim();
-                const desc = p ? p.textContent.trim() : '';
-                
-                const isCombo = card.closest('#combos') !== null;
-                const itemType = isCombo ? 'காம்போ (Combo)' : 'மாலை (Garland)';
-                
-                const message = `வணக்கம் சிவா மலரகம் (Hello Siva Malaragam),\n\nநான் இந்த ${itemType} ஆர்டர் செய்ய விரும்புகிறேன்:\n🌸 *பொருள்/பெயர்:* ${title}\n🏷️ *குறியீடு (Code):* ${imgName}\n📝 *விவரம் (Description):* ${desc}\n\nதயவுசெய்து இதன் விலை மற்றும் விவரங்களை கூறவும்.`;
-                
-                btn.href = `https://wa.me/919443994187?text=${encodeURIComponent(message)}`;
-                btn.target = '_blank';
+            // Create rich action links in the overlay (WhatsApp and Instagram)
+            const isCombo = card.closest('#combos') !== null;
+            const prefix = isCombo ? "காம்போ" : "மாலை";
+            const message = `நான் இந்த ${prefix} book செய்ய விரும்புகிறேன்: ${title} (${imgName}). விலை சொல்லுங்கள்.`;
+            
+            const overlay = card.querySelector('.card-overlay');
+            if (overlay) {
+                overlay.innerHTML = `
+                    <a href="https://wa.me/919443994187?text=${encodeURIComponent(message)}" target="_blank" class="btn-card">
+                        <i class="fab fa-whatsapp"></i> WhatsApp Book
+                    </a>
+                    <a href="https://ig.me/m/siva_malaragam_offical" target="_blank" class="btn-card btn-instagram">
+                        <i class="fab fa-instagram"></i> Instagram DM
+                    </a>
+                `;
             }
         }
     });
@@ -194,11 +199,19 @@ document.addEventListener('DOMContentLoaded', () => {
     const filterBtns = document.querySelectorAll('.filter-btn');
     filterBtns.forEach(btn => {
         btn.addEventListener('click', () => {
+            const filterValue = btn.getAttribute('data-filter');
+            
+            if (filterValue === 'combo') {
+                const combosSection = document.getElementById('combos');
+                if (combosSection) {
+                    combosSection.scrollIntoView({ behavior: 'smooth' });
+                }
+                return;
+            }
+            
             // Update active states
             filterBtns.forEach(b => b.classList.remove('active'));
             btn.classList.add('active');
-            
-            const filterValue = btn.getAttribute('data-filter');
             
             galleryCards.forEach(card => {
                 const cardCats = card.getAttribute('data-category') || '';
@@ -218,6 +231,25 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             });
         });
+    });
+
+    // 8. FAQ Accordion Toggling Logic
+    const faqItems = document.querySelectorAll('.faq-item');
+    faqItems.forEach(item => {
+        const question = item.querySelector('.faq-question');
+        if (question) {
+            question.addEventListener('click', () => {
+                const isOpen = item.classList.contains('open');
+                
+                // Close all items first
+                faqItems.forEach(i => i.classList.remove('open'));
+                
+                // If it wasn't open, open it
+                if (!isOpen) {
+                    item.classList.add('open');
+                }
+            });
+        }
     });
 
 });
